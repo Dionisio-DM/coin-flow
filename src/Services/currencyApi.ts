@@ -8,9 +8,13 @@ export const currencyApi = {
     const data = await response.json();
     return data;
   },
-  async getRateInPeriod(fromDate: string): Promise<RatePeriod> {
+  async getRateInPeriod(
+    fromDate: string,
+    baseCurrency: string,
+    targetCurrency: string
+  ): Promise<RatePeriod> {
     const response = await fetch(
-      `https://api.frankfurter.dev/v1/${fromDate}..`
+      `https://api.frankfurter.dev/v1/${fromDate}..?symbols=${targetCurrency}&base=${baseCurrency}`
     );
     const data = await response.json();
     return data;
