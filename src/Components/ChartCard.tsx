@@ -11,7 +11,7 @@ import {
 
 const data = [
   {
-    name: "Page A",
+    name: "2025-01-01",
     uv: 4000,
   },
   {
@@ -69,9 +69,16 @@ export const ChartCard: React.FC = () => {
           }}
         >
           <CartesianGrid strokeDasharray="4 4" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
+          <XAxis dataKey="name" tick={{ fill: "#ccc" }} tickMargin={8} />
+
+          <YAxis tick={{ fill: "#ccc" }} />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: "#333",
+              color: "#fff",
+              border: "none",
+            }}
+          />
           <Line type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
         </LineChart>
       </ResponsiveContainer>
