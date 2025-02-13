@@ -24,7 +24,7 @@ function App() {
             <InfoCard title="Taxa Atual" content="conteudo"></InfoCard>
           </Flex>
         </Box>
-        <Box my={"3rem"}>
+        <Box my={"3rem"} pb={"6"}>
           <Footer />
         </Box>
       </Box>

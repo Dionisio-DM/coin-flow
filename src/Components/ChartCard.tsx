@@ -1,4 +1,4 @@
-import { Card } from "@radix-ui/themes";
+import { Card, SegmentedControl } from "@radix-ui/themes";
 import {
   CartesianGrid,
   Line,
@@ -55,6 +55,14 @@ const data = [
 export const ChartCard: React.FC = () => {
   return (
     <Card>
+      <SegmentedControl.Root defaultValue="inbox" mb={"5"} mt={"2"} ml={"2"}>
+        <SegmentedControl.Item value="month">1 mês</SegmentedControl.Item>
+        <SegmentedControl.Item value="semester">6 meses</SegmentedControl.Item>
+        <SegmentedControl.Item value="year">1 ano</SegmentedControl.Item>
+        <SegmentedControl.Item value="halfDecade">5 ano</SegmentedControl.Item>
+        <SegmentedControl.Item value="max">max</SegmentedControl.Item>
+      </SegmentedControl.Root>
+
       <ResponsiveContainer width={"100%"} height={300}>
         <LineChart
           width={500}
