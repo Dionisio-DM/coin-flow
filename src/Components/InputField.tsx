@@ -1,12 +1,16 @@
 import { TextField } from "@radix-ui/themes";
 import { CurrencySelector } from "./CurrencySelector";
 
-export const InputField: React.FC = () => {
+interface InputFieldProps {
+  initial: string;
+}
+
+export const InputField: React.FC<InputFieldProps> = ({ initial }) => {
   return (
     <>
       <TextField.Root size={"3"}>
         <TextField.Slot side="right">
-          <CurrencySelector />
+          <CurrencySelector initial={initial} />
         </TextField.Slot>
       </TextField.Root>
     </>
