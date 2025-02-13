@@ -2,7 +2,7 @@ export interface Rate {
   amount: number;
   base: string;
   date: string;
-  rates: {};
+  rates: Record<string, number>;
 }
 
 export interface RatePeriod {
@@ -10,5 +10,10 @@ export interface RatePeriod {
   base: string;
   start_date: string;
   end_date: string;
-  rates: {};
+  rates: Record<string, Record<string, number>>;
+}
+
+export interface SeriesData {
+  name: string;
+  price: number;
 }
