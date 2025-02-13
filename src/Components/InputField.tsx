@@ -8,7 +8,7 @@ interface InputFieldProps {
 export const InputField: React.FC<InputFieldProps> = ({ initial }) => {
   return (
     <>
-      <TextField.Root size={"3"}>
+      <TextField.Root size={"3"} type="number">
         <TextField.Slot side="right">
           <CurrencySelector initial={initial} />
         </TextField.Slot>
