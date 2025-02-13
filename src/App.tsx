@@ -1,9 +1,10 @@
-import { Box, Theme } from "@radix-ui/themes";
+import { Box, Flex, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Header } from "./Components/Header";
 import { Footer } from "./Components/Footer";
 import { ConverterCard } from "./Components/ConverterCard";
 import { ChartCard } from "./Components/ChartCard";
+import { InfoCard } from "./Components/InfoCard";
 
 function App() {
   return (
@@ -17,8 +18,15 @@ function App() {
           <Box my={"0.85rem"}>
             <ChartCard></ChartCard>
           </Box>
+          <Flex wrap={"wrap"} justify={"between"} gap={"4"}>
+            <InfoCard title="Taxa Atual" content="conteudo"></InfoCard>
+            <InfoCard title="Taxa Atual" content="conteudo"></InfoCard>
+            <InfoCard title="Taxa Atual" content="conteudo"></InfoCard>
+          </Flex>
         </Box>
-        <Footer />
+        <Box my={"3rem"}>
+          <Footer />
+        </Box>
       </Box>
     </Theme>
   );
