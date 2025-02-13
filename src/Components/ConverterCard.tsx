@@ -5,7 +5,13 @@ export const ConverterCard: React.FC = () => {
   return (
     <Card>
       <Box>
-        <Flex gap={"3"} direction={"row"} width={"100%"} justify={"between"}>
+        <Flex
+          gap={"3"}
+          direction={"row"}
+          width={"100%"}
+          justify={"between"}
+          wrap={"wrap"}
+        >
           <Box width={"35rem"}>
             <Text as="label" size={"1"}>
               Quantia
