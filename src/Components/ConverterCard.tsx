@@ -16,13 +16,13 @@ export const ConverterCard: React.FC = () => {
             <Text as="label" size={"1"}>
               Quantia
             </Text>
-            <InputField></InputField>
+            <InputField initial="BRL"></InputField>
           </Box>
           <Box width={"35rem"}>
             <Text as="label" size={"1"}>
               Converter para
             </Text>
-            <InputField></InputField>
+            <InputField initial="USD"></InputField>
           </Box>
         </Flex>
         <Text as="p" mt={"1rem"}>
