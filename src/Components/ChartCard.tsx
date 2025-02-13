@@ -56,7 +56,7 @@ export const ChartCard: React.FC = () => {
   return (
     <Card>
       <ScrollArea scrollbars="horizontal">
-        <SegmentedControl.Root defaultValue="inbox" mb={"5"} mt={"2"} ml={"2"}>
+        <SegmentedControl.Root defaultValue="month" mb={"5"} mt={"2"} ml={"2"}>
           <SegmentedControl.Item value="month">1 mês</SegmentedControl.Item>
           <SegmentedControl.Item value="semester">
             6 meses
