@@ -14,6 +14,6 @@ export interface RatePeriod {
 }
 
 export interface SeriesData {
-  name: string;
+  date: string;
   price: number;
 }
