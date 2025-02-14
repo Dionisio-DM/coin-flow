@@ -39,11 +39,16 @@ export const ChartCard: React.FC = () => {
             top: 10,
             right: 30,
             left: 0,
-            bottom: 0,
+            bottom: 27,
           }}
         >
           <CartesianGrid strokeDasharray="4 4" />
-          <XAxis dataKey="date" tick={{ fill: "#ccc" }} tickMargin={8} />
+          <XAxis
+            dataKey="date"
+            tick={{ fill: "#ccc" }}
+            tickMargin={20}
+            angle={-45}
+          />
 
           <YAxis
             domain={[minInPeriod - 0.05, maxInPeriod + 0.05]}
