@@ -8,51 +8,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
-const data = [
-  {
-    name: "2025-01-01",
-    uv: 4000,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+import { useCurrencies } from "../Hooks/useCurrencies";
 
 export const ChartCard: React.FC = () => {
+  const { seriesData, maxInPeriod, minInPeriod } = useCurrencies();
+
   return (
     <Card>
       <ScrollArea scrollbars="horizontal">
@@ -73,7 +33,7 @@ export const ChartCard: React.FC = () => {
         <LineChart
           width={500}
           height={200}
-          data={data}
+          data={seriesData}
           syncId="anyId"
           margin={{
             top: 10,
@@ -83,9 +43,13 @@ export const ChartCard: React.FC = () => {
           }}
         >
           <CartesianGrid strokeDasharray="4 4" />
-          <XAxis dataKey="name" tick={{ fill: "#ccc" }} tickMargin={8} />
+          <XAxis dataKey="date" tick={{ fill: "#ccc" }} tickMargin={8} />
 
-          <YAxis tick={{ fill: "#ccc" }} tickMargin={8} />
+          <YAxis
+            domain={[minInPeriod - 0.05, maxInPeriod + 0.05]}
+            tick={{ fill: "#ccc" }}
+            tickMargin={8}
+          />
           <Tooltip
             contentStyle={{
               backgroundColor: "#333",
@@ -93,7 +57,12 @@ export const ChartCard: React.FC = () => {
               border: "none",
             }}
           />
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+          <Line
+            type="monotone"
+            dataKey="price"
+            stroke="#8884d8"
+            fill="#8884d8"
+          />
         </LineChart>
       </ResponsiveContainer>
     </Card>
