@@ -6,6 +6,8 @@ import { formatDate, fromDate } from "../Utils/dateOperations";
 export interface ContextData {
   rate: number;
   variationRate: number;
+  maxInPeriod: number;
+  minInPeriod: number;
   averageInPeriod: number;
   seriesData: SeriesData[];
   getRate: (baseCurrency: string, targetCurrency: string) => Promise<void>;
@@ -29,6 +31,8 @@ export const CurrenciesContextProvider: React.FC<
   const [seriesData, setSeriesData] = useState<SeriesData[]>([]);
   const [variationRate, setVariationRate] = useState<number>(0);
   const [averageInPeriod, setAverageInPeriod] = useState<number>(1);
+  const [maxInPeriod, setMaxInPeriod] = useState<number>(8);
+  const [minInPeriod, setMinInPeriod] = useState<number>(1);
 
   const parseRateInPeriodData = (data: RatePeriod) => {
     const series: SeriesData[] = Object.entries(data.rates).map(
@@ -50,9 +54,16 @@ export const CurrenciesContextProvider: React.FC<
 
     const averageInPeriod = +(sumInPeriod / series.length).toFixed(3);
 
+    const dataPriceArray = series.map((curr) => curr.price);
+
+    const maxPrice = Math.max.apply(null, dataPriceArray);
+    const minPrice = Math.min.apply(null, dataPriceArray);
+
     setSeriesData(series);
     setVariationRate(calculatedVariationRate);
     setAverageInPeriod(averageInPeriod);
+    setMaxInPeriod(maxPrice);
+    setMinInPeriod(minPrice);
 
     return series;
   };
@@ -99,6 +110,8 @@ export const CurrenciesContextProvider: React.FC<
         variationRate,
         averageInPeriod,
         seriesData,
+        maxInPeriod,
+        minInPeriod,
         getRate,
         getSeriesData,
       }}
