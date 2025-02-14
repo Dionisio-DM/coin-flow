@@ -35,9 +35,14 @@ export const CurrenciesContextProvider: React.FC<
   const [minInPeriod, setMinInPeriod] = useState<number>(1);
 
   const parseRateInPeriodData = (data: RatePeriod) => {
+    // Transforma resposta da api response em um array de objetos
     const series: SeriesData[] = Object.entries(data.rates).map(
       ([date, rateObj]) => ({
-        date: date,
+        date: new Date(date).toLocaleString(undefined, {
+          year: "2-digit",
+          day: "numeric",
+          month: "2-digit",
+        }),
         price: +(1 / rateObj["USD"]).toFixed(2),
       })
     );
@@ -68,8 +73,6 @@ export const CurrenciesContextProvider: React.FC<
     return series;
   };
 
-  // const formatDate = (date: Date)
-
   useEffect(() => {
     currencyApi
       .getRate("BRL", "USD")
@@ -82,7 +85,7 @@ export const CurrenciesContextProvider: React.FC<
     currencyApi
       .getRateInPeriod(formatedDate, "BRL", "USD")
       .then(parseRateInPeriodData);
-  });
+  }, []);
 
   // adicionar useeffect para inicializar seriesdata, variationrate e averageinperiod
 
