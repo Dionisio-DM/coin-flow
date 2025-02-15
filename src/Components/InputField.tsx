@@ -3,17 +3,24 @@ import { CurrencySelector } from "./CurrencySelector";
 import { useCurrencies } from "../Hooks/useCurrencies";
 
 interface InputFieldProps {
-  initial: string;
+  currency: string;
   value: number;
   id: string;
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
-  initial,
+  currency,
   value,
   id,
 }) => {
   const { updateExchangeInput } = useCurrencies();
+
+  const changeHandle = (value: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = +(+value.target.value).toFixed(2);
+    const id: string = value.target.id;
+    updateExchangeInput(newValue, id);
+  };
+
   return (
     <>
       <TextField.Root
@@ -21,11 +28,11 @@ export const InputField: React.FC<InputFieldProps> = ({
         size={"3"}
         value={value === 0 ? "" : value}
         onChange={(e) => {
-          updateExchangeInput(e);
+          changeHandle(e);
         }}
       >
         <TextField.Slot side="right">
-          <CurrencySelector initial={initial} />
+          <CurrencySelector currency={currency} id={id} />
         </TextField.Slot>
       </TextField.Root>
     </>
