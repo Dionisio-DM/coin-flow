@@ -4,6 +4,9 @@ import { RatePeriod, SeriesData } from "../Entities/currency";
 import { formatDate, fromDate } from "../Utils/dateOperations";
 
 export interface ContextData {
+  baseValue: number;
+  targetValue: number;
+  updateExchangeInput: (value: React.ChangeEvent<HTMLInputElement>) => void;
   rate: number;
   variationRate: number;
   maxInPeriod: number;
@@ -27,6 +30,9 @@ interface CurrenciesContextProviderProps {
 export const CurrenciesContextProvider: React.FC<
   CurrenciesContextProviderProps
 > = ({ children }) => {
+  const [baseValue, setBaseValue] = useState<number>(0);
+  const [targetValue, setTargetValue] = useState<number>(0);
+
   const [rate, setRate] = useState<number>(1);
   const [seriesData, setSeriesData] = useState<SeriesData[]>([]);
   const [variationRate, setVariationRate] = useState<number>(0);
@@ -34,8 +40,8 @@ export const CurrenciesContextProvider: React.FC<
   const [maxInPeriod, setMaxInPeriod] = useState<number>(8);
   const [minInPeriod, setMinInPeriod] = useState<number>(1);
 
+  // Transforma resposta da api response em um array de objetos e modifica variaveis
   const parseRateInPeriodData = (data: RatePeriod) => {
-    // Transforma resposta da api response em um array de objetos
     const series: SeriesData[] = Object.entries(data.rates).map(
       ([date, rateObj]) => ({
         date: new Date(date).toLocaleString(undefined, {
@@ -73,6 +79,7 @@ export const CurrenciesContextProvider: React.FC<
     return series;
   };
 
+  // Inicializando variaveis
   useEffect(() => {
     currencyApi
       .getRate("BRL", "USD")
@@ -89,6 +96,7 @@ export const CurrenciesContextProvider: React.FC<
 
   // adicionar useeffect para inicializar seriesdata, variationrate e averageinperiod
 
+  // Função de atualização de variaveis
   const getRate = async (baseCurrency: string, targetCurrency: string) => {
     currencyApi
       .getRate(baseCurrency, targetCurrency)
@@ -96,7 +104,6 @@ export const CurrenciesContextProvider: React.FC<
   };
 
   const getSeriesData = async (
-    // garantir atualização de seriesdata, variationrate e averageinperiod
     fromDate: string,
     baseCurrency: string,
     targetCurrency: string
@@ -106,9 +113,23 @@ export const CurrenciesContextProvider: React.FC<
       .then(parseRateInPeriodData);
   };
 
+  const updateExchangeInput = (value: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = +(+value.target.value).toFixed(2);
+    if (value.target.id === "base") {
+      setBaseValue(+newValue);
+      setTargetValue(+(newValue * rate).toFixed(2));
+    } else if (value.target.id === "target") {
+      setTargetValue(newValue);
+      setBaseValue(+(newValue / rate).toFixed(2));
+    }
+  };
+
   return (
     <CurrenciesContext.Provider
       value={{
+        baseValue,
+        targetValue,
+        updateExchangeInput,
         rate,
         variationRate,
         averageInPeriod,
