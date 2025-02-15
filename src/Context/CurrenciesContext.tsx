@@ -59,7 +59,10 @@ export const CurrenciesContextProvider: React.FC<
           day: "numeric",
           month: "2-digit",
         }),
-        price: +(1 / rateObj[targetCurrency]).toFixed(2),
+        price:
+          rateObj[targetCurrency] > 1
+            ? +rateObj[targetCurrency]
+            : +(1 / rateObj[targetCurrency]).toFixed(2),
       })
     );
 
@@ -135,11 +138,10 @@ export const CurrenciesContextProvider: React.FC<
       setBaseCurrency(newCurrency);
       getRate(newCurrency, targetCurrency);
       getSeriesData(1, newCurrency, targetCurrency);
-      console.log(seriesData);
     } else if (id === "target") {
       setTargetCurrency(newCurrency);
       getRate(baseCurrency, newCurrency);
-      console.log(minInPeriod);
+      console.log(seriesData);
       getSeriesData(1, baseCurrency, newCurrency);
     }
   };
