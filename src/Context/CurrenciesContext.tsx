@@ -4,6 +4,7 @@ import { RatePeriod, SeriesData } from "../Entities/currency";
 import { formatDate, fromDate } from "../Utils/dateOperations";
 
 export interface ContextData {
+  currencies: string[];
   baseValue: number;
   targetValue: number;
   updateExchangeInput: (value: React.ChangeEvent<HTMLInputElement>) => void;
@@ -33,7 +34,10 @@ export const CurrenciesContextProvider: React.FC<
   const [baseValue, setBaseValue] = useState<number>(0);
   const [targetValue, setTargetValue] = useState<number>(0);
 
+  const [currencies, setCurrencies] = useState<string[]>([]);
+
   const [rate, setRate] = useState<number>(1);
+
   const [seriesData, setSeriesData] = useState<SeriesData[]>([]);
   const [variationRate, setVariationRate] = useState<number>(0);
   const [averageInPeriod, setAverageInPeriod] = useState<number>(1);
@@ -94,6 +98,12 @@ export const CurrenciesContextProvider: React.FC<
       .then(parseRateInPeriodData);
   }, []);
 
+  useEffect(() => {
+    currencyApi.getCurrenciesName().then((data) => {
+      setCurrencies(Object.keys(data));
+    });
+  }, []);
+
   // adicionar useeffect para inicializar seriesdata, variationrate e averageinperiod
 
   // Função de atualização de variaveis
@@ -127,6 +137,7 @@ export const CurrenciesContextProvider: React.FC<
   return (
     <CurrenciesContext.Provider
       value={{
+        currencies,
         baseValue,
         targetValue,
         updateExchangeInput,
