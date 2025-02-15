@@ -8,7 +8,8 @@ import { InfoCard } from "./Components/InfoCard";
 import { useCurrencies } from "./Hooks/useCurrencies";
 
 function App() {
-  const { rate, averageInPeriod, variationRate } = useCurrencies();
+  const { rate, averageInPeriod, variationRate, targetCurrency, baseCurrency } =
+    useCurrencies();
 
   return (
     <Theme appearance="dark">
@@ -24,7 +25,9 @@ function App() {
           <Flex wrap={"wrap"} justify={"between"} gap={"4"}>
             <InfoCard
               title="Taxa Atual"
-              content={`1 BRL = ${rate.toFixed(3)} USD`}
+              content={`1 ${baseCurrency} = ${rate.toFixed(
+                3
+              )} ${targetCurrency}`}
             ></InfoCard>
             <InfoCard
               title="Variação Diária"
@@ -32,7 +35,7 @@ function App() {
             ></InfoCard>
             <InfoCard
               title="Média do Período"
-              content={`${averageInPeriod} BRL`}
+              content={`${averageInPeriod} ${baseCurrency}`}
             ></InfoCard>
           </Flex>
         </Box>
