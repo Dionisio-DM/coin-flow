@@ -11,12 +11,49 @@ import {
 import { useCurrencies } from "../Hooks/useCurrencies";
 
 export const ChartCard: React.FC = () => {
-  const { seriesData, maxInPeriod, minInPeriod } = useCurrencies();
+  const {
+    seriesData,
+    maxInPeriod,
+    minInPeriod,
+    baseCurrency,
+    targetCurrency,
+    getSeriesData,
+  } = useCurrencies();
+
+  const onChangeHandle = (value: string) => {
+    console.log(value);
+    let months = 0;
+    switch (value) {
+      case "month":
+        months = 1;
+        break;
+      case "semester":
+        months = 6;
+        break;
+
+      case "year":
+        months = 12;
+        break;
+
+      case "halfDecade":
+        months = 60;
+        break;
+      default:
+        break;
+    }
+    getSeriesData(months, baseCurrency, targetCurrency);
+  };
 
   return (
     <Card>
       <ScrollArea scrollbars="horizontal">
-        <SegmentedControl.Root defaultValue="month" mb={"5"} mt={"2"} ml={"2"}>
+        <SegmentedControl.Root
+          defaultValue="month"
+          mb={"5"}
+          mt={"2"}
+          ml={"2"}
+          onValueChange={onChangeHandle}
+        >
           <SegmentedControl.Item value="month">1 mês</SegmentedControl.Item>
           <SegmentedControl.Item value="semester">
             6 meses
@@ -25,7 +62,7 @@ export const ChartCard: React.FC = () => {
           <SegmentedControl.Item value="halfDecade">
             5 ano
           </SegmentedControl.Item>
-          <SegmentedControl.Item value="max">max</SegmentedControl.Item>
+          {/* <SegmentedControl.Item value="max">max</SegmentedControl.Item> */}
         </SegmentedControl.Root>
       </ScrollArea>
 
@@ -38,7 +75,7 @@ export const ChartCard: React.FC = () => {
           margin={{
             top: 10,
             right: 30,
-            left: 0,
+            left: 10,
             bottom: 27,
           }}
         >
@@ -51,7 +88,7 @@ export const ChartCard: React.FC = () => {
           />
 
           <YAxis
-            domain={[minInPeriod - 0.05, maxInPeriod + 0.05]}
+            domain={[minInPeriod - 0.05, maxInPeriod + 0.1]}
             tick={{ fill: "#ccc" }}
             tickMargin={8}
           />
@@ -67,6 +104,7 @@ export const ChartCard: React.FC = () => {
             dataKey="price"
             stroke="#8884d8"
             fill="#8884d8"
+            dot={{ r: 0 }}
           />
         </LineChart>
       </ResponsiveContainer>
