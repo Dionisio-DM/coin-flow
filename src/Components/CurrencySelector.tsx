@@ -1,21 +1,26 @@
 import { Button, DropdownMenu } from "@radix-ui/themes";
-import { useState } from "react";
 import { useCurrencies } from "../Hooks/useCurrencies";
 
 interface CurrencySelectorProps {
-  initial: string;
+  currency: string;
+  id: string;
 }
 
 export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
-  initial,
+  currency,
+  id,
 }) => {
-  const { currencies } = useCurrencies();
-  const [currency, setCurrency] = useState(initial);
+  const { currencies, baseCurrency, targetCurrency, updateCurrenciesContext } =
+    useCurrencies();
 
   const handleSelect = (event: Event) => {
     const target = event.currentTarget as HTMLElement;
     const targetValue = target.dataset.value;
-    if (targetValue) setCurrency(targetValue);
+    const targetId = target.id;
+
+    console.log(targetId);
+
+    targetValue && updateCurrenciesContext(targetValue, targetId);
   };
 
   return (
@@ -27,15 +32,16 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content size="2">
-        {currencies.map((curr) => {
-          if (curr !== currency)
+        {currencies.map((currency) => {
+          if (currency !== baseCurrency && currency !== targetCurrency)
             return (
               <DropdownMenu.Item
-                key={curr}
-                data-value={curr}
+                key={currency}
+                id={id}
+                data-value={currency}
                 onSelect={handleSelect}
               >
-                {curr}
+                {currency}
               </DropdownMenu.Item>
             );
         })}
