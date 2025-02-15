@@ -4,19 +4,22 @@ import { RatePeriod, SeriesData } from "../Entities/currency";
 import { formatDate, fromDate } from "../Utils/dateOperations";
 
 export interface ContextData {
+  baseCurrency: string;
+  targetCurrency: string;
+  updateCurrenciesContext: (newCurrency: string, id: string) => void;
   currencies: string[];
   baseValue: number;
   targetValue: number;
-  updateExchangeInput: (value: React.ChangeEvent<HTMLInputElement>) => void;
+  updateExchangeInput: (value: number, id: string) => void;
   rate: number;
   variationRate: number;
   maxInPeriod: number;
   minInPeriod: number;
   averageInPeriod: number;
   seriesData: SeriesData[];
-  getRate: (baseCurrency: string, targetCurrency: string) => Promise<void>;
+  // getRate: (baseCurrency: string, targetCurrency: string) => Promise<void>;
   getSeriesData: (
-    fromDate: string,
+    months: number,
     baseCurrency: string,
     targetCurrency: string
   ) => Promise<SeriesData[]>;
@@ -31,6 +34,9 @@ interface CurrenciesContextProviderProps {
 export const CurrenciesContextProvider: React.FC<
   CurrenciesContextProviderProps
 > = ({ children }) => {
+  const [baseCurrency, setBaseCurrency] = useState<string>("BRL");
+  const [targetCurrency, setTargetCurrency] = useState<string>("USD");
+
   const [baseValue, setBaseValue] = useState<number>(0);
   const [targetValue, setTargetValue] = useState<number>(0);
 
@@ -45,7 +51,7 @@ export const CurrenciesContextProvider: React.FC<
   const [minInPeriod, setMinInPeriod] = useState<number>(1);
 
   // Transforma resposta da api response em um array de objetos e modifica variaveis
-  const parseRateInPeriodData = (data: RatePeriod) => {
+  const parseRateInPeriodData = (data: RatePeriod, targetCurrency: string) => {
     const series: SeriesData[] = Object.entries(data.rates).map(
       ([date, rateObj]) => ({
         date: new Date(date).toLocaleString(undefined, {
@@ -53,7 +59,7 @@ export const CurrenciesContextProvider: React.FC<
           day: "numeric",
           month: "2-digit",
         }),
-        price: +(1 / rateObj["USD"]).toFixed(2),
+        price: +(1 / rateObj[targetCurrency]).toFixed(2),
       })
     );
 
@@ -94,8 +100,8 @@ export const CurrenciesContextProvider: React.FC<
     const date = fromDate(1);
     const formatedDate = formatDate(date);
     currencyApi
-      .getRateInPeriod(formatedDate, "BRL", "USD")
-      .then(parseRateInPeriodData);
+      .getRateInPeriod(formatedDate, baseCurrency, targetCurrency)
+      .then((data) => parseRateInPeriodData(data, targetCurrency));
   }, []);
 
   useEffect(() => {
@@ -103,8 +109,6 @@ export const CurrenciesContextProvider: React.FC<
       setCurrencies(Object.keys(data));
     });
   }, []);
-
-  // adicionar useeffect para inicializar seriesdata, variationrate e averageinperiod
 
   // Função de atualização de variaveis
   const getRate = async (baseCurrency: string, targetCurrency: string) => {
@@ -114,29 +118,48 @@ export const CurrenciesContextProvider: React.FC<
   };
 
   const getSeriesData = async (
-    fromDate: string,
+    months: number,
     baseCurrency: string,
     targetCurrency: string
   ) => {
+    const date = fromDate(months);
+    const formatedFromDate = formatDate(date);
+
     return currencyApi
-      .getRateInPeriod(fromDate, baseCurrency, targetCurrency)
-      .then(parseRateInPeriodData);
+      .getRateInPeriod(formatedFromDate, baseCurrency, targetCurrency)
+      .then((data) => parseRateInPeriodData(data, targetCurrency));
   };
 
-  const updateExchangeInput = (value: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = +(+value.target.value).toFixed(2);
-    if (value.target.id === "base") {
-      setBaseValue(+newValue);
-      setTargetValue(+(newValue * rate).toFixed(2));
-    } else if (value.target.id === "target") {
-      setTargetValue(newValue);
-      setBaseValue(+(newValue / rate).toFixed(2));
+  const updateCurrenciesContext = (newCurrency: string, id: string) => {
+    if (id === "base") {
+      setBaseCurrency(newCurrency);
+      getRate(newCurrency, targetCurrency);
+      getSeriesData(1, newCurrency, targetCurrency);
+      console.log(seriesData);
+    } else if (id === "target") {
+      setTargetCurrency(newCurrency);
+      getRate(baseCurrency, newCurrency);
+      console.log(minInPeriod);
+      getSeriesData(1, baseCurrency, newCurrency);
+    }
+  };
+
+  const updateExchangeInput = (value: number, id: string) => {
+    if (id === "base") {
+      setBaseValue(+value);
+      setTargetValue(+(value * rate).toFixed(2));
+    } else if (id === "target") {
+      setTargetValue(value);
+      setBaseValue(+(value / rate).toFixed(2));
     }
   };
 
   return (
     <CurrenciesContext.Provider
       value={{
+        baseCurrency,
+        targetCurrency,
+        updateCurrenciesContext,
         currencies,
         baseValue,
         targetValue,
@@ -147,7 +170,7 @@ export const CurrenciesContextProvider: React.FC<
         seriesData,
         maxInPeriod,
         minInPeriod,
-        getRate,
+        // getRate,
         getSeriesData,
       }}
     >
