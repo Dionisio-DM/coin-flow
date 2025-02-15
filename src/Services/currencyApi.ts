@@ -19,4 +19,9 @@ export const currencyApi = {
     const data = await response.json();
     return data;
   },
+  async getCurrenciesName(): Promise<{}> {
+    const response = await fetch("https://api.frankfurter.dev/v1/currencies");
+    const data = await response.json();
+    return data;
+  },
 };
