@@ -3,7 +3,8 @@ import { InputField } from "./InputField";
 import { useCurrencies } from "../Hooks/useCurrencies";
 
 export const ConverterCard: React.FC = () => {
-  const { baseValue, targetValue } = useCurrencies();
+  const { baseValue, targetValue, targetCurrency, baseCurrency } =
+    useCurrencies();
   return (
     <Card>
       <Box>
@@ -18,14 +19,18 @@ export const ConverterCard: React.FC = () => {
             <Text as="label" size={"1"}>
               Quantia
             </Text>
-            <InputField initial="BRL" value={baseValue} id="base"></InputField>
+            <InputField
+              currency={baseCurrency}
+              value={baseValue}
+              id="base"
+            ></InputField>
           </Box>
           <Box width={"35rem"}>
             <Text as="label" size={"1"}>
               Converter para
             </Text>
             <InputField
-              initial="USD"
+              currency={targetCurrency}
               value={targetValue}
               id="target"
             ></InputField>
