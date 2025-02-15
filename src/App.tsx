@@ -22,14 +22,17 @@ function App() {
             <ChartCard></ChartCard>
           </Box>
           <Flex wrap={"wrap"} justify={"between"} gap={"4"}>
-            <InfoCard title="Taxa Atual" content={rate}></InfoCard>
+            <InfoCard
+              title="Taxa Atual"
+              content={`1 BRL = ${rate.toFixed(3)} USD`}
+            ></InfoCard>
             <InfoCard
               title="Variação Diária"
-              content={variationRate}
+              content={`${variationRate}%`}
             ></InfoCard>
             <InfoCard
               title="Média do Período"
-              content={averageInPeriod}
+              content={`${averageInPeriod} BRL`}
             ></InfoCard>
           </Flex>
         </Box>
