@@ -13,6 +13,10 @@ export interface RatePeriod {
   rates: Record<string, Record<string, number>>;
 }
 
+export interface CurrencyNames {
+  [code: string]: string;
+}
+
 export interface SeriesData {
   date: string;
   price: number;

@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { RatePeriod, SeriesData } from "../Entities/currency";
+import { CurrencyNames, RatePeriod, SeriesData } from "../Entities/currency";
 import { formatDate, fromDate } from "../Utils/dateOperations";
 import { currencyApi } from "../Services/currencyApi";
 import {
@@ -12,6 +12,7 @@ import {
 export interface ChartContextData {
   segmentedControlValue: string;
   updateSegmentedControlValue: (value: string) => void;
+  currencyNames: CurrencyNames;
   variationRate: number;
   maxInPeriod: number;
   minInPeriod: number;
@@ -35,6 +36,8 @@ export const ChartContextProvider: React.FC<ChartContextProviderProps> = ({
 }) => {
   const [segmentedControlValue, setSegmentedControlValue] =
     useState<string>("month");
+
+  const [currencyNames, setCurrencyNames] = useState<CurrencyNames>({});
 
   const [seriesData, setSeriesData] = useState<SeriesData[]>([]);
   const [variationRate, setVariationRate] = useState<number>(0);
@@ -66,6 +69,11 @@ export const ChartContextProvider: React.FC<ChartContextProviderProps> = ({
     });
   }, []);
 
+  // Inicialização das moedas com nomes
+  useEffect(() => {
+    currencyApi.getCurrenciesName().then((data) => setCurrencyNames(data));
+  }, []);
+
   const updateSegmentedControlValue = (value: string) => {
     setSegmentedControlValue(value);
   };
@@ -90,6 +98,7 @@ export const ChartContextProvider: React.FC<ChartContextProviderProps> = ({
       value={{
         segmentedControlValue,
         updateSegmentedControlValue,
+        currencyNames,
         variationRate,
         averageInPeriod,
         seriesData,

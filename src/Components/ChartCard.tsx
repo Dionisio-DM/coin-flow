@@ -26,7 +26,9 @@ export const ChartCard: React.FC = () => {
     getSeriesData,
     segmentedControlValue,
     updateSegmentedControlValue,
+    currencyNames,
   } = useChart();
+
   const segmentedControl = [
     { time: "month", value: 1 },
     { time: "semester", value: 6 },
@@ -47,8 +49,8 @@ export const ChartCard: React.FC = () => {
       <Flex justify={"center"}>
         <Text align={"center"}>
           {rate <= 1
-            ? `Gráfico do valor de 1 ${targetCurrency} em ${baseCurrency}`
-            : `Gráfico do valor de 1 ${baseCurrency} em ${targetCurrency}`}
+            ? `Valor de 1 ${currencyNames[targetCurrency]} em ${currencyNames[baseCurrency]}`
+            : `Valor de 1 ${currencyNames[baseCurrency]} em ${currencyNames[targetCurrency]}`}
         </Text>
       </Flex>
       <ScrollArea scrollbars="horizontal">
