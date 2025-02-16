@@ -74,10 +74,12 @@ export const ChartContextProvider: React.FC<ChartContextProviderProps> = ({
     currencyApi.getCurrenciesName().then((data) => setCurrencyNames(data));
   }, []);
 
+  // atualiza valor do segmentedControlValue (encapsulado na função para caso tenha necessidade de regras extras antes de atualizar  futuramente)
   const updateSegmentedControlValue = (value: string) => {
     setSegmentedControlValue(value);
   };
 
+  // Requisita novos dados para a api para atualizar interface
   const getSeriesData = async (
     months: number,
     baseCurrency: string,
