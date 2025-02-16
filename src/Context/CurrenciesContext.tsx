@@ -2,6 +2,12 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { currencyApi } from "../Services/currencyApi";
 import { RatePeriod, SeriesData } from "../Entities/currency";
 import { formatDate, fromDate } from "../Utils/dateOperations";
+import {
+  formatDateRatePeriod,
+  VariationRate,
+  average,
+  minMaxExtractor,
+} from "../Utils/chartOperation";
 
 export interface ContextData {
   baseCurrency: string;
@@ -51,36 +57,38 @@ export const CurrenciesContextProvider: React.FC<
 
   // Transforma resposta da api response em um array de objetos e modifica variaveis
   const parseRateInPeriodData = (data: RatePeriod, targetCurrency: string) => {
-    const series: SeriesData[] = Object.entries(data.rates).map(
-      ([date, rateObj]) => ({
-        date: new Date(date).toLocaleString(undefined, {
-          year: "2-digit",
-          day: "numeric",
-          month: "2-digit",
-        }),
-        price:
-          rateObj[targetCurrency] > 1
-            ? +rateObj[targetCurrency]
-            : +(1 / rateObj[targetCurrency]).toFixed(2),
-      })
-    );
+    // const series: SeriesData[] = Object.entries(data.rates).map(
+    //   ([date, rateObj]) => ({
+    //     date: new Date(date).toLocaleString(undefined, {
+    //       year: "2-digit",
+    //       day: "numeric",
+    //       month: "2-digit",
+    //     }),
+    //     price:
+    //       rateObj[targetCurrency] > 1
+    //         ? +rateObj[targetCurrency]
+    //         : +(1 / rateObj[targetCurrency]).toFixed(2),
+    //   })
+    // );
+    const series = formatDateRatePeriod(data, targetCurrency);
+    // const calculatedVariationRate = +(
+    //   (series[series.length - 1].price / series[series.length - 2].price - 1) *
+    //   100
+    // ).toFixed(3);
+    const calculatedVariationRate = VariationRate(series);
+    // const sumInPeriod = series.reduce(
+    //   (accumulator, currentValue) => accumulator + currentValue.price,
+    //   0
+    // );
 
-    const calculatedVariationRate = +(
-      (series[series.length - 1].price / series[series.length - 2].price - 1) *
-      100
-    ).toFixed(3);
+    // const averageInPeriod = +(sumInPeriod / series.length).toFixed(3);
+    const averageInPeriod = average(series);
 
-    const sumInPeriod = series.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.price,
-      0
-    );
+    const { minPrice, maxPrice } = minMaxExtractor(series);
+    // const dataPriceArray = series.map((curr) => curr.price);
 
-    const averageInPeriod = +(sumInPeriod / series.length).toFixed(3);
-
-    const dataPriceArray = series.map((curr) => curr.price);
-
-    const maxPrice = Math.max.apply(null, dataPriceArray);
-    const minPrice = Math.min.apply(null, dataPriceArray);
+    // const maxPrice = Math.max.apply(null, dataPriceArray);
+    // const minPrice = Math.min.apply(null, dataPriceArray);
 
     setSeriesData(series);
     setVariationRate(calculatedVariationRate);
