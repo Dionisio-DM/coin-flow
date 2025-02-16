@@ -44,10 +44,12 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <Button variant="ghost" color="gray" size={"3"}>
-          <CurrencyFlag currency={currency} size="md" />
-          {currency}
-          <DropdownMenu.TriggerIcon />
+        <Button variant="ghost" color="gray" size={"3"} asChild>
+          <a href="#">
+            <CurrencyFlag currency={currency} size="md" />
+            {currency}
+            <DropdownMenu.TriggerIcon />
+          </a>
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content size="2">
