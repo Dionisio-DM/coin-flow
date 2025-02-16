@@ -91,6 +91,7 @@ export const ChartCard: React.FC = () => {
             domain={[minInPeriod - 0.05, maxInPeriod + 0.1]}
             tick={{ fill: "#ccc" }}
             tickMargin={8}
+            tickFormatter={(value: number) => value.toFixed(2)}
           />
           <Tooltip
             contentStyle={{
