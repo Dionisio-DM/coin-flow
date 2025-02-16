@@ -1,4 +1,10 @@
-import { Card, ScrollArea, SegmentedControl } from "@radix-ui/themes";
+import {
+  Card,
+  Flex,
+  ScrollArea,
+  SegmentedControl,
+  Text,
+} from "@radix-ui/themes";
 import {
   CartesianGrid,
   Line,
@@ -12,7 +18,7 @@ import { useCurrencies } from "../Hooks/useCurrencies";
 import { useChart } from "../Hooks/useChart";
 
 export const ChartCard: React.FC = () => {
-  const { baseCurrency, targetCurrency } = useCurrencies();
+  const { baseCurrency, targetCurrency, rate } = useCurrencies();
   const {
     seriesData,
     maxInPeriod,
@@ -38,6 +44,13 @@ export const ChartCard: React.FC = () => {
 
   return (
     <Card>
+      <Flex justify={"center"}>
+        <Text align={"center"}>
+          {rate <= 1
+            ? `Gráfico do valor de 1 ${targetCurrency} em ${baseCurrency}`
+            : `Gráfico do valor de 1 ${baseCurrency} em ${targetCurrency}`}
+        </Text>
+      </Flex>
       <ScrollArea scrollbars="horizontal">
         <SegmentedControl.Root
           value={segmentedControlValue}
