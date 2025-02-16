@@ -16,6 +16,7 @@ import {
 } from "recharts";
 import { useCurrencies } from "../Hooks/useCurrencies";
 import { useChart } from "../Hooks/useChart";
+import { CustomTooltip } from "./CustomTooltip";
 
 export const ChartCard: React.FC = () => {
   const { baseCurrency, targetCurrency, rate } = useCurrencies();
@@ -102,6 +103,7 @@ export const ChartCard: React.FC = () => {
             tickFormatter={(value: number) => value.toFixed(2)}
           />
           <Tooltip
+            content={<CustomTooltip />}
             contentStyle={{
               backgroundColor: "#333",
               color: "#fff",
