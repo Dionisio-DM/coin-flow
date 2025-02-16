@@ -55,50 +55,6 @@ export const CurrenciesContextProvider: React.FC<
   const [maxInPeriod, setMaxInPeriod] = useState<number>(8);
   const [minInPeriod, setMinInPeriod] = useState<number>(1);
 
-  // Transforma resposta da api response em um array de objetos e modifica variaveis
-  const parseRateInPeriodData = (data: RatePeriod, targetCurrency: string) => {
-    // const series: SeriesData[] = Object.entries(data.rates).map(
-    //   ([date, rateObj]) => ({
-    //     date: new Date(date).toLocaleString(undefined, {
-    //       year: "2-digit",
-    //       day: "numeric",
-    //       month: "2-digit",
-    //     }),
-    //     price:
-    //       rateObj[targetCurrency] > 1
-    //         ? +rateObj[targetCurrency]
-    //         : +(1 / rateObj[targetCurrency]).toFixed(2),
-    //   })
-    // );
-    const series = formatDateRatePeriod(data, targetCurrency);
-    // const calculatedVariationRate = +(
-    //   (series[series.length - 1].price / series[series.length - 2].price - 1) *
-    //   100
-    // ).toFixed(3);
-    const calculatedVariationRate = VariationRate(series);
-    // const sumInPeriod = series.reduce(
-    //   (accumulator, currentValue) => accumulator + currentValue.price,
-    //   0
-    // );
-
-    // const averageInPeriod = +(sumInPeriod / series.length).toFixed(3);
-    const averageInPeriod = average(series);
-
-    const { minPrice, maxPrice } = minMaxExtractor(series);
-    // const dataPriceArray = series.map((curr) => curr.price);
-
-    // const maxPrice = Math.max.apply(null, dataPriceArray);
-    // const minPrice = Math.min.apply(null, dataPriceArray);
-
-    setSeriesData(series);
-    setVariationRate(calculatedVariationRate);
-    setAverageInPeriod(averageInPeriod);
-    setMaxInPeriod(maxPrice);
-    setMinInPeriod(minPrice);
-
-    return series;
-  };
-
   // Inicializando variaveis
   useEffect(() => {
     currencyApi
@@ -111,7 +67,18 @@ export const CurrenciesContextProvider: React.FC<
     const formatedDate = formatDate(date);
     currencyApi
       .getRateInPeriod(formatedDate, baseCurrency, targetCurrency)
-      .then((data) => parseRateInPeriodData(data, targetCurrency));
+      .then((data) => {
+        const series = formatDateRatePeriod(data, targetCurrency);
+        const calculatedVariationRate = VariationRate(series);
+        const averageInPeriod = average(series);
+
+        const { minPrice, maxPrice } = minMaxExtractor(series);
+        setSeriesData(series);
+        setVariationRate(calculatedVariationRate);
+        setAverageInPeriod(averageInPeriod);
+        setMaxInPeriod(maxPrice);
+        setMinInPeriod(minPrice);
+      });
   }, []);
 
   useEffect(() => {
@@ -144,7 +111,18 @@ export const CurrenciesContextProvider: React.FC<
 
     return currencyApi
       .getRateInPeriod(formatedFromDate, baseCurrency, targetCurrency)
-      .then((data) => parseRateInPeriodData(data, targetCurrency));
+      .then((data) => {
+        const series = formatDateRatePeriod(data, targetCurrency);
+        const calculatedVariationRate = VariationRate(series);
+        const averageInPeriod = average(series);
+        const { minPrice, maxPrice } = minMaxExtractor(series);
+        setSeriesData(series);
+        setVariationRate(calculatedVariationRate);
+        setAverageInPeriod(averageInPeriod);
+        setMaxInPeriod(maxPrice);
+        setMinInPeriod(minPrice);
+        return series;
+      });
   };
 
   const updateCurrenciesContext = (newCurrency: string, id: string) => {
