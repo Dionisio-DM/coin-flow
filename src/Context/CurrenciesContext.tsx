@@ -17,7 +17,6 @@ export interface ContextData {
   minInPeriod: number;
   averageInPeriod: number;
   seriesData: SeriesData[];
-  // getRate: (baseCurrency: string, targetCurrency: string) => Promise<void>;
   getSeriesData: (
     months: number,
     baseCurrency: string,
@@ -113,6 +112,11 @@ export const CurrenciesContextProvider: React.FC<
     });
   }, []);
 
+  // Reagindo a mudanças
+  useEffect(() => {
+    setTargetValue(+(baseValue * rate).toFixed(2));
+  }, [rate]);
+
   // Função de atualização de variaveis
   const getRate = async (baseCurrency: string, targetCurrency: string) => {
     currencyApi
@@ -172,7 +176,6 @@ export const CurrenciesContextProvider: React.FC<
         seriesData,
         maxInPeriod,
         minInPeriod,
-        // getRate,
         getSeriesData,
       }}
     >
