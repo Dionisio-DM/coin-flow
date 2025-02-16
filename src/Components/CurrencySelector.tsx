@@ -33,7 +33,6 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
       getRate(targetValue, targetCurrency);
       getSeriesData(1, targetValue, targetCurrency);
     } else if (targetId === "target") {
-      console.log(targetValue);
       updateTargetCurrency(targetValue);
       getRate(baseCurrency, targetValue);
       getSeriesData(1, baseCurrency, targetValue);

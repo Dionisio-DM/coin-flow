@@ -12,14 +12,7 @@ import { useCurrencies } from "../Hooks/useCurrencies";
 import { useChart } from "../Hooks/useChart";
 
 export const ChartCard: React.FC = () => {
-  const {
-    // seriesData,
-    // maxInPeriod,
-    // minInPeriod,
-    baseCurrency,
-    targetCurrency,
-    // getSeriesData,
-  } = useCurrencies();
+  const { baseCurrency, targetCurrency } = useCurrencies();
   const {
     seriesData,
     maxInPeriod,
@@ -30,7 +23,6 @@ export const ChartCard: React.FC = () => {
   } = useChart();
 
   const onChangeHandle = (value: string) => {
-    console.log(segmentedControlValue, value);
     let months = 0;
     updateSegmentedControlValue(value);
     switch (value) {
