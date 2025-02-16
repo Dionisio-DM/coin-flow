@@ -18,10 +18,10 @@ function App() {
         <Header />
         <Box mt={"5"}>
           <Box my={"0.85rem"}>
-            <ConverterCard></ConverterCard>
+            <ConverterCard />
           </Box>
           <Box my={"0.85rem"}>
-            <ChartCard></ChartCard>
+            <ChartCard />
           </Box>
           <Flex wrap={"wrap"} justify={"between"} gap={"4"}>
             <InfoCard
