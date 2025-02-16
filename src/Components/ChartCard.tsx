@@ -47,7 +47,7 @@ export const ChartCard: React.FC = () => {
   return (
     <Card>
       <Flex justify={"center"}>
-        <Text align={"center"}>
+        <Text align={"center"} size={"5"} weight={"bold"}>
           {rate <= 1
             ? `Valor de 1 ${currencyNames[targetCurrency]} em ${currencyNames[baseCurrency]}`
             : `Valor de 1 ${currencyNames[baseCurrency]} em ${currencyNames[targetCurrency]}`}
