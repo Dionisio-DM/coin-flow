@@ -1,5 +1,6 @@
 import { Button, DropdownMenu } from "@radix-ui/themes";
 import { useCurrencies } from "../Hooks/useCurrencies";
+import CurrencyFlag from "react-currency-flags";
 
 interface CurrencySelectorProps {
   currency: string;
@@ -27,6 +28,7 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
         <Button variant="ghost" color="gray" size={"3"}>
+          <CurrencyFlag currency={currency} size="md" />
           {currency}
           <DropdownMenu.TriggerIcon />
         </Button>
@@ -41,6 +43,7 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
                 data-value={currency}
                 onSelect={handleSelect}
               >
+                <CurrencyFlag currency={currency} size="md" />
                 {currency}
               </DropdownMenu.Item>
             );
