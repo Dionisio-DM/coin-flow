@@ -25,9 +25,11 @@ function App() {
           <Flex wrap={"wrap"} justify={"between"} gap={"4"}>
             <InfoCard
               title="Taxa Atual"
-              content={`1 ${baseCurrency} = ${rate.toFixed(
-                3
-              )} ${targetCurrency}`}
+              content={
+                rate <= 1
+                  ? `1 ${baseCurrency} = ${rate.toFixed(3)} ${targetCurrency}`
+                  : `1000 ${targetCurrency} = ${(1000 / rate).toFixed(3)}`
+              }
             ></InfoCard>
             <InfoCard
               title="Variação Diária"
