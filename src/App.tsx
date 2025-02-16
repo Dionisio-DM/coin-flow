@@ -15,38 +15,57 @@ function App() {
   return (
     <Theme appearance="dark">
       <Box maxWidth={"80rem"} maxHeight={"100vh"} mx={"auto"}>
-        <Header />
-        <Box mt={"5"}>
-          <Box my={"0.85rem"}>
-            <ConverterCard />
-          </Box>
-          <Box my={"0.85rem"}>
-            <ChartCard />
-          </Box>
-          <Flex wrap={"wrap"} justify={"between"} gap={"4"}>
-            <InfoCard
-              title="Taxa Atual"
-              content={
-                rate <= 1
-                  ? `1 ${baseCurrency} = ${rate.toFixed(3)} ${targetCurrency}`
-                  : `1000 ${targetCurrency} = ${(1000 / rate).toFixed(
-                      3
-                    )} ${baseCurrency}`
-              }
-            ></InfoCard>
-            <InfoCard
-              title="Variação Diária"
-              content={`${variationRate}%`}
-            ></InfoCard>
-            <InfoCard
-              title="Média do Período"
-              content={`${averageInPeriod} ${baseCurrency}`}
-            ></InfoCard>
+        <Flex
+          direction={"column"}
+          style={{
+            minHeight: "100vh",
+            maxWidth: "80rem",
+            margin: "0 auto",
+          }}
+        >
+          <Header />
+          <Flex
+            direction="column"
+            style={{
+              flex: 1,
+              justifyContent: "center",
+            }}
+          >
+            <Box mt={"5"}>
+              <Box my={"0.85rem"}>
+                <ConverterCard />
+              </Box>
+              <Box my={"0.85rem"}>
+                <ChartCard />
+              </Box>
+              <Flex wrap={"wrap"} justify={"between"} gap={"4"}>
+                <InfoCard
+                  title="Taxa Atual"
+                  content={
+                    rate <= 1
+                      ? `1 ${baseCurrency} = ${rate.toFixed(
+                          3
+                        )} ${targetCurrency}`
+                      : `1000 ${targetCurrency} = ${(1000 / rate).toFixed(
+                          3
+                        )} ${baseCurrency}`
+                  }
+                ></InfoCard>
+                <InfoCard
+                  title="Variação Diária"
+                  content={`${variationRate}%`}
+                ></InfoCard>
+                <InfoCard
+                  title="Média do Período"
+                  content={`${averageInPeriod} ${baseCurrency}`}
+                ></InfoCard>
+              </Flex>
+            </Box>
           </Flex>
-        </Box>
-        <Box my={"3rem"} pb={"6"}>
-          <Footer />
-        </Box>
+          <Box mt="4rem" mb={"1.5rem"}>
+            <Footer />
+          </Box>
+        </Flex>
       </Box>
     </Theme>
   );
