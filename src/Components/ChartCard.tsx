@@ -21,28 +21,18 @@ export const ChartCard: React.FC = () => {
     segmentedControlValue,
     updateSegmentedControlValue,
   } = useChart();
+  const segmentedControl = [
+    { time: "month", value: 1 },
+    { time: "semester", value: 6 },
+    { time: "year", value: 12 },
+    { time: "halfDecade", value: 60 },
+  ];
 
   const onChangeHandle = (value: string) => {
-    let months = 0;
+    const months =
+      segmentedControl.find((item) => item.time === value)?.value || 1;
+
     updateSegmentedControlValue(value);
-    switch (value) {
-      case "month":
-        months = 1;
-        break;
-      case "semester":
-        months = 6;
-        break;
-
-      case "year":
-        months = 12;
-        break;
-
-      case "halfDecade":
-        months = 60;
-        break;
-      default:
-        break;
-    }
     getSeriesData(months, baseCurrency, targetCurrency);
   };
 
