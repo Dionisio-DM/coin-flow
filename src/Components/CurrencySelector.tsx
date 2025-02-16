@@ -1,6 +1,7 @@
 import { Button, DropdownMenu } from "@radix-ui/themes";
 import { useCurrencies } from "../Hooks/useCurrencies";
 import CurrencyFlag from "react-currency-flags";
+import { useChart } from "../Hooks/useChart";
 
 interface CurrencySelectorProps {
   currency: string;
@@ -11,13 +12,10 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
   currency,
   id,
 }) => {
-  const {
-    currencies,
-    baseCurrency,
-    targetCurrency,
-    updateCurrenciesContext,
-    updateSegmentedControlValue,
-  } = useCurrencies();
+  const { currencies, baseCurrency, targetCurrency, updateCurrenciesContext } =
+    useCurrencies();
+
+  const { updateSegmentedControlValue } = useChart();
 
   const handleSelect = (event: Event) => {
     const target = event.currentTarget as HTMLElement;

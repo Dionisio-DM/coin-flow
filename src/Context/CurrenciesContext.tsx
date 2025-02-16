@@ -4,8 +4,6 @@ import { RatePeriod, SeriesData } from "../Entities/currency";
 import { formatDate, fromDate } from "../Utils/dateOperations";
 
 export interface ContextData {
-  segmentedControlValue: string;
-  updateSegmentedControlValue: (value: string) => void;
   baseCurrency: string;
   targetCurrency: string;
   updateCurrenciesContext: (newCurrency: string, id: string) => void;
@@ -35,9 +33,6 @@ interface CurrenciesContextProviderProps {
 export const CurrenciesContextProvider: React.FC<
   CurrenciesContextProviderProps
 > = ({ children }) => {
-  const [segmentedControlValue, setSegmentedControlValue] =
-    useState<string>("month");
-
   const [baseCurrency, setBaseCurrency] = useState<string>("BRL");
   const [targetCurrency, setTargetCurrency] = useState<string>("USD");
 
@@ -167,15 +162,9 @@ export const CurrenciesContextProvider: React.FC<
     }
   };
 
-  const updateSegmentedControlValue = (value: string) => {
-    setSegmentedControlValue(value);
-  };
-
   return (
     <CurrenciesContext.Provider
       value={{
-        segmentedControlValue,
-        updateSegmentedControlValue,
         baseCurrency,
         targetCurrency,
         updateCurrenciesContext,

@@ -9,6 +9,7 @@ import {
   YAxis,
 } from "recharts";
 import { useCurrencies } from "../Hooks/useCurrencies";
+import { useChart } from "../Hooks/useChart";
 
 export const ChartCard: React.FC = () => {
   const {
@@ -17,10 +18,9 @@ export const ChartCard: React.FC = () => {
     minInPeriod,
     baseCurrency,
     targetCurrency,
-    segmentedControlValue,
     getSeriesData,
-    updateSegmentedControlValue,
   } = useCurrencies();
+  const { segmentedControlValue, updateSegmentedControlValue } = useChart();
 
   const onChangeHandle = (value: string) => {
     console.log(segmentedControlValue, value);
