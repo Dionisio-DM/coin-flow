@@ -75,7 +75,7 @@ export const ChartContextProvider: React.FC<ChartContextProviderProps> = ({
     return currencyApi
       .getRateInPeriod(formatedFromDate, baseCurrency, targetCurrency)
       .then((data) => {
-        const series = formatDateRatePeriod(data, "USD");
+        const series = formatDateRatePeriod(data, targetCurrency);
         const calculatedVariationRate = VariationRate(series);
         const averageInPeriod = average(series);
 
