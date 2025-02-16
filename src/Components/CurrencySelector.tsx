@@ -11,17 +11,21 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
   currency,
   id,
 }) => {
-  const { currencies, baseCurrency, targetCurrency, updateCurrenciesContext } =
-    useCurrencies();
+  const {
+    currencies,
+    baseCurrency,
+    targetCurrency,
+    updateCurrenciesContext,
+    updateSegmentedControlValue,
+  } = useCurrencies();
 
   const handleSelect = (event: Event) => {
     const target = event.currentTarget as HTMLElement;
     const targetValue = target.dataset.value;
     const targetId = target.id;
 
-    console.log(targetId);
-
     targetValue && updateCurrenciesContext(targetValue, targetId);
+    updateSegmentedControlValue("month");
   };
 
   return (

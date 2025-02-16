@@ -17,12 +17,15 @@ export const ChartCard: React.FC = () => {
     minInPeriod,
     baseCurrency,
     targetCurrency,
+    segmentedControlValue,
     getSeriesData,
+    updateSegmentedControlValue,
   } = useCurrencies();
 
   const onChangeHandle = (value: string) => {
-    console.log(value);
+    console.log(segmentedControlValue, value);
     let months = 0;
+    updateSegmentedControlValue(value);
     switch (value) {
       case "month":
         months = 1;
@@ -48,6 +51,7 @@ export const ChartCard: React.FC = () => {
     <Card>
       <ScrollArea scrollbars="horizontal">
         <SegmentedControl.Root
+          value={segmentedControlValue}
           defaultValue="month"
           mb={"5"}
           mt={"2"}
