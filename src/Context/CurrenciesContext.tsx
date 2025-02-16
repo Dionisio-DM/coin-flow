@@ -6,7 +6,6 @@ export interface ContextData {
   targetCurrency: string;
   updateBaseCurrency: (value: string) => void;
   updateTargetCurrency: (value: string) => void;
-  // updateCurrenciesContext: (newCurrency: string, id: string) => void;
   currencies: string[];
   baseValue: number;
   targetValue: number;
@@ -34,25 +33,12 @@ export const CurrenciesContextProvider: React.FC<
 
   const [rate, setRate] = useState<number>(1);
 
-  // const [seriesData, setSeriesData] = useState<SeriesData[]>([]);
-
   // Inicializando variaveis
   useEffect(() => {
     currencyApi
       .getRate("BRL", "USD")
       .then((data) => setRate(data.rates["USD"]));
   }, []);
-
-  // useEffect(() => {
-  //   const date = fromDate(1);
-  //   const formatedDate = formatDate(date);
-  //   currencyApi
-  //     .getRateInPeriod(formatedDate, baseCurrency, targetCurrency)
-  //     .then((data) => {
-  //       const series = formatDateRatePeriod(data, targetCurrency);
-  //       setSeriesData(series);
-  //     });
-  // }, []);
 
   useEffect(() => {
     currencyApi.getCurrenciesName().then((data) => {
@@ -65,16 +51,12 @@ export const CurrenciesContextProvider: React.FC<
     setTargetValue(+(baseValue * rate).toFixed(2));
   }, [rate]);
 
-  // useEffect(()=>setAverageInPeriod())
-
   // Função de atualização de variaveis
   const getRate = async (baseCurrency: string, targetCurrency: string) => {
     currencyApi
       .getRate(baseCurrency, targetCurrency)
       .then((data) => setRate(data.rates[targetCurrency]));
   };
-
-  // const getSeriesData = async (
   //   months: number,
   //   baseCurrency: string,
   //   targetCurrency: string
@@ -98,19 +80,6 @@ export const CurrenciesContextProvider: React.FC<
     setTargetCurrency(value);
   };
 
-  // const updateCurrenciesContext = (newCurrency: string, id: string) => {
-  //   if (id === "base") {
-  //     updateBaseCurrency(newCurrency);
-  //     getRate(newCurrency, targetCurrency);
-  //     getSeriesData(1, newCurrency, targetCurrency);
-  //   } else if (id === "target") {
-  //     updateTargetCurrency(newCurrency);
-  //     getRate(baseCurrency, newCurrency);
-  //     console.log(seriesData);
-  //     getSeriesData(1, baseCurrency, newCurrency);
-  //   }
-  // };
-
   const updateExchangeInput = (value: number, id: string) => {
     if (id === "base") {
       setBaseValue(+value);
@@ -128,7 +97,6 @@ export const CurrenciesContextProvider: React.FC<
         targetCurrency,
         updateBaseCurrency,
         updateTargetCurrency,
-        // updateCurrenciesContext,
         currencies,
         baseValue,
         targetValue,
