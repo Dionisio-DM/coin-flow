@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { currencyApi } from "../Services/currencyApi";
-import { RatePeriod, SeriesData } from "../Entities/currency";
+import { SeriesData } from "../Entities/currency";
 import { formatDate, fromDate } from "../Utils/dateOperations";
 import {
   formatDateRatePeriod,
