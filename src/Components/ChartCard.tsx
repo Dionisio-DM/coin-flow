@@ -17,8 +17,10 @@ import {
 import { useCurrencies } from "../Hooks/useCurrencies";
 import { useChart } from "../Hooks/useChart";
 import { CustomTooltip } from "./CustomTooltip";
+import { useTheme } from "../Hooks/useThemeControler";
 
 export const ChartCard: React.FC = () => {
+  const { appearance } = useTheme();
   const { baseCurrency, targetCurrency, rate } = useCurrencies();
   const {
     seriesData,
@@ -88,28 +90,24 @@ export const ChartCard: React.FC = () => {
             bottom: 27,
           }}
         >
-          <CartesianGrid strokeDasharray="4 4" />
+          <CartesianGrid
+            strokeDasharray="4 4"
+            stroke={appearance === "light" ? "#8b8b8b" : "#ccc"}
+          />
           <XAxis
             dataKey="date"
-            tick={{ fill: "#ccc" }}
+            tick={{ fill: appearance === "light" ? "#000" : "#ccc" }}
             tickMargin={20}
             angle={-45}
           />
 
           <YAxis
             domain={[minInPeriod - 0.05, maxInPeriod + 0.1]}
-            tick={{ fill: "#ccc" }}
+            tick={{ fill: appearance === "light" ? "#000" : "#ccc" }}
             tickMargin={8}
             tickFormatter={(value: number) => value.toFixed(2)}
           />
-          <Tooltip
-            content={<CustomTooltip />}
-            contentStyle={{
-              backgroundColor: "#333",
-              color: "#fff",
-              border: "none",
-            }}
-          />
+          <Tooltip content={<CustomTooltip />} />
           <Line
             type="monotone"
             dataKey="price"
