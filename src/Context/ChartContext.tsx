@@ -9,7 +9,7 @@ import {
   VariationRate,
 } from "../Utils/chartOperation";
 
-export interface ChartContextData {
+interface ChartContextData {
   segmentedControlValue: string;
   updateSegmentedControlValue: (value: string) => void;
   currencyNames: CurrencyNames;

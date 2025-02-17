@@ -1,4 +1,4 @@
-import { Box, Flex, Theme } from "@radix-ui/themes";
+import { Box, Button, Flex, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Header } from "./Components/Header";
 import { Footer } from "./Components/Footer";
@@ -7,13 +7,27 @@ import { ChartCard } from "./Components/ChartCard";
 import { InfoCard } from "./Components/InfoCard";
 import { useCurrencies } from "./Hooks/useCurrencies";
 import { useChart } from "./Hooks/useChart";
+// import { useState } from "react";
+import { useTheme } from "./Hooks/useThemeControler";
 
 function App() {
   const { rate, targetCurrency, baseCurrency } = useCurrencies();
   const { averageInPeriod, variationRate } = useChart();
+  const { appearance, toggleTheme } = useTheme();
+
+  // const [appearance, setAppearance] = useState<"light" | "dark">("light");
+
+  // const toggleTheme = () => {
+  //   setAppearance((prev) => (prev === "light" ? "dark" : "light"));
+  // };
 
   return (
-    <Theme appearance="dark">
+    <Theme appearance={appearance} accentColor="indigo" radius="large">
+      <div style={{ padding: "1rem" }}>
+        <Button onClick={toggleTheme}>
+          {appearance === "light" ? "Ativar Dark Mode" : "Ativar Light Mode"}
+        </Button>
+      </div>
       <Box maxWidth={"80rem"} maxHeight={"100vh"} mx={"auto"}>
         <Flex
           direction={"column"}

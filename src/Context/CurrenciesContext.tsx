@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { currencyApi } from "../Services/currencyApi";
 
-export interface ContextData {
+interface ContextData {
   baseCurrency: string;
   targetCurrency: string;
   updateBaseCurrency: (value: string) => void;
