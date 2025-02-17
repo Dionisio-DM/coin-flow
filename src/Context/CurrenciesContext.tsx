@@ -25,7 +25,39 @@ interface CurrenciesContextProviderProps {
 export const CurrenciesContextProvider: React.FC<
   CurrenciesContextProviderProps
 > = ({ children }) => {
-  const [currencyNames, setCurrencyNames] = useState<CurrencyNames>({});
+  const currencyNames = {
+    AUD: "Dólar Australiano",
+    BGN: "Lev Búlgaro",
+    BRL: "Real Brasileiro",
+    CAD: "Dólar Canadense",
+    CHF: "Franco Suíço",
+    CNY: "Yuan Chinês",
+    CZK: "Coroa Tcheca",
+    DKK: "Coroa Dinamarquesa",
+    EUR: "Euro",
+    GBP: "Libra Esterlina",
+    HKD: "Dólar de Hong Kong",
+    HUF: "Forint Húngaro",
+    IDR: "Rupia Indonésia",
+    ILS: "Novo Shekel Israelense",
+    INR: "Rúpia Indiana",
+    ISK: "Coroa Islandesa",
+    JPY: "Iene Japonês",
+    KRW: "Won Sul-Coreano",
+    MXN: "Peso Mexicano",
+    MYR: "Ringgit Malaio",
+    NOK: "Coroa Norueguesa",
+    NZD: "Dólar Neozelandês",
+    PHP: "Peso Filipino",
+    PLN: "Złoty Polonês",
+    RON: "Leu Romeno",
+    SEK: "Coroa Sueca",
+    SGD: "Dólar de Singapura",
+    THB: "Baht Tailandês",
+    TRY: "Lira Turca",
+    USD: "Dólar Americano",
+    ZAR: "Rand Sul-Africano",
+  };
 
   const [baseCurrency, setBaseCurrency] = useState<string>("BRL");
   const [targetCurrency, setTargetCurrency] = useState<string>("USD");
@@ -47,7 +79,6 @@ export const CurrenciesContextProvider: React.FC<
   // Inicializando variaveis
   useEffect(() => {
     currencyApi.getCurrenciesName().then((data) => {
-      setCurrencyNames(data);
       setCurrencies(Object.keys(data));
     });
   }, []);
