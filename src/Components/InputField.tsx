@@ -1,7 +1,6 @@
 import { TextField } from "@radix-ui/themes";
 import { CurrencySelector } from "./CurrencySelector";
 import { useCurrencies } from "../Hooks/useCurrencies";
-import { filterAllowedCharacters } from "../Utils/checkOperations";
 
 interface InputFieldProps {
   currency: string;
@@ -17,8 +16,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   const { updateExchangeInput } = useCurrencies();
 
   const changeHandle = (value: React.ChangeEvent<HTMLInputElement>) => {
-    const checkedValue = filterAllowedCharacters(value.target.value);
-    const newValue = +(+checkedValue).toFixed(2);
+    const newValue = +(+value.target.value).toFixed(2);
     const id: string = value.target.id;
 
     updateExchangeInput(newValue, id);
@@ -27,6 +25,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   return (
     <>
       <TextField.Root
+        type="number"
         id={id}
         size={"3"}
         value={value === 0 ? "" : value}
