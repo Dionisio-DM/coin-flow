@@ -31,8 +31,12 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
       <Text as="p" mb={"1"}>{`${label}`}</Text>
       <Text as="p">
         {rate <= 1
-          ? `${payload[0].value.toFixed(2)} ${baseCurrency}`
-          : `${payload[0].value.toFixed(2)} ${targetCurrency}`}
+          ? `1 ${targetCurrency} = ${payload[0].value.toFixed(
+              2
+            )} ${baseCurrency}`
+          : `1 ${baseCurrency} = ${payload[0].value.toFixed(
+              2
+            )} ${targetCurrency}`}
       </Text>
     </div>
   );
