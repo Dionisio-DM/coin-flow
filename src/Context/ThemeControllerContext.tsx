@@ -18,6 +18,7 @@ export const ThemeContextProvider: React.FC<ThemeContextProviderProps> = ({
     "light" | "dark" | "inherit" | undefined
   >("dark");
 
+  // função para alternar modo
   const toggleTheme = () => {
     setAppearance((prev) => (prev === "light" ? "dark" : "light"));
   };

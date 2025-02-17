@@ -44,6 +44,7 @@ export const CurrenciesContextProvider: React.FC<
       .then((data) => setRate(data.rates["USD"] / 10000000000));
   }, []);
 
+  // Inicializando variaveis
   useEffect(() => {
     currencyApi.getCurrenciesName().then((data) => {
       setCurrencyNames(data);
@@ -63,13 +64,17 @@ export const CurrenciesContextProvider: React.FC<
       .then((data) => setRate(data.rates[targetCurrency] / 10000000000));
   };
 
+  // Atualiza baseCurrency. Encapsulada em caso de necessidade futura
   const updateBaseCurrency = (value: string) => {
     setBaseCurrency(value);
   };
+
+  // Atualiza baseCurrency. Encapsulada em caso de necessidade futura
   const updateTargetCurrency = (value: string) => {
     setTargetCurrency(value);
   };
 
+  // Atualização condicional das variáveis set e base currency
   const updateExchangeInput = (value: number, id: string) => {
     if (id === "base") {
       setBaseValue(+value);

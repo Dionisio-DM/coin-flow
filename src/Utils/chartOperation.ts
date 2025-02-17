@@ -1,5 +1,6 @@
 import { RatePeriod, SeriesData } from "../Entities/currency";
 
+// Soma valores do array
 export const sumInPeriod = (series: SeriesData[]) => {
   const sumInPeriod = series.reduce(
     (accumulator, currentValue) => accumulator + currentValue.price,
@@ -8,6 +9,7 @@ export const sumInPeriod = (series: SeriesData[]) => {
   return sumInPeriod;
 };
 
+// formata os dados para serem utilizados pelo gráfico da rechart
 export const formatDateRatePeriod = (
   data: RatePeriod,
   targetCurrency: string
@@ -28,6 +30,7 @@ export const formatDateRatePeriod = (
   return series;
 };
 
+// Calcula a variação dos ultimos dois elementos do array
 export const VariationRate = (series: SeriesData[]) => {
   return +(
     (series[series.length - 1].price / series[series.length - 2].price - 1) *
@@ -35,12 +38,14 @@ export const VariationRate = (series: SeriesData[]) => {
   ).toFixed(3);
 };
 
+// Calcula a média do período
 export const average = (series: SeriesData[]) => {
   const sumPeriod = sumInPeriod(series);
   const averageInPeriod = +(sumPeriod / series.length).toFixed(3);
   return averageInPeriod;
 };
 
+// Retorna o minimo e o maximo no array
 export const minMaxExtractor = (series: SeriesData[]) => {
   const dataPriceArray = series.map((curr) => curr.price);
 
