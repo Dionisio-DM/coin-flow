@@ -14,6 +14,7 @@ export const ConverterCard: React.FC = () => {
           width={"100%"}
           justify={"between"}
           wrap={"wrap"}
+          pb={"0.5rem"}
         >
           <Box width={"35rem"}>
             <Text as="label" size={"1"}>
@@ -36,9 +37,6 @@ export const ConverterCard: React.FC = () => {
             ></InputField>
           </Box>
         </Flex>
-        <Text as="p" mt={"1rem"}>
-          Valor convertido
-        </Text>
       </Box>
     </Card>
   );
