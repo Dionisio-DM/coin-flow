@@ -10,7 +10,7 @@ export const InfoCard: React.FC<InfoCardProps> = ({ title, content }) => {
     <Box maxWidth="100%" flexGrow={"1"}>
       <Card>
         <Flex direction={"column"}>
-          <Text align={"center"} weight={"bold"} size={"7"}>
+          <Text align={"center"} weight={"bold"} size={"6"}>
             {title}
           </Text>
           <Text align={"center"} size={"7"} weight={"light"}>

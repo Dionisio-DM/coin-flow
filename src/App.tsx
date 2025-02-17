@@ -55,12 +55,12 @@ function App() {
                   title="Taxa Atual"
                   content={
                     rate <= 1
-                      ? `1 ${baseCurrency} = ${rate.toFixed(
-                          3
+                      ? `1000 ${baseCurrency} = ${(1000 * rate).toFixed(
+                          2
                         )} ${targetCurrency}`
-                      : `1000 ${targetCurrency} = ${(1000 / rate).toFixed(
-                          3
-                        )} ${baseCurrency}`
+                      : `1 ${baseCurrency} = ${rate.toFixed(
+                          2
+                        )} ${targetCurrency}`
                   }
                 ></InfoCard>
                 <InfoCard
@@ -69,7 +69,11 @@ function App() {
                 ></InfoCard>
                 <InfoCard
                   title="Média do Período"
-                  content={`${averageInPeriod} ${baseCurrency}`}
+                  content={
+                    rate <= 1
+                      ? `${averageInPeriod} ${baseCurrency} = 1 ${targetCurrency}`
+                      : `${averageInPeriod} ${targetCurrency} = 1 ${baseCurrency}`
+                  }
                 ></InfoCard>
               </Flex>
             </Box>
