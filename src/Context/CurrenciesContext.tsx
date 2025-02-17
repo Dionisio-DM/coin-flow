@@ -62,21 +62,6 @@ export const CurrenciesContextProvider: React.FC<
       .getRate(baseCurrency, targetCurrency)
       .then((data) => setRate(data.rates[targetCurrency]));
   };
-  //   months: number,
-  //   baseCurrency: string,
-  //   targetCurrency: string
-  // ) => {
-  //   const date = fromDate(months);
-  //   const formatedFromDate = formatDate(date);
-
-  //   return currencyApi
-  //     .getRateInPeriod(formatedFromDate, baseCurrency, targetCurrency)
-  //     .then((data) => {
-  //       const series = formatDateRatePeriod(data, targetCurrency);
-  //       setSeriesData(series);
-  //       return series;
-  //     });
-  // };
 
   const updateBaseCurrency = (value: string) => {
     setBaseCurrency(value);
