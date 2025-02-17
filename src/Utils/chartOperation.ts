@@ -20,9 +20,9 @@ export const formatDateRatePeriod = (
         month: "2-digit",
       }),
       price:
-        rateObj[targetCurrency] > 1
-          ? +rateObj[targetCurrency]
-          : +(1 / rateObj[targetCurrency]).toFixed(2),
+        rateObj[targetCurrency] / 10000000000 > 1
+          ? +rateObj[targetCurrency] / 10000000000
+          : +(1 / (rateObj[targetCurrency] / 10000000000)).toFixed(2),
     })
   );
   return series;
