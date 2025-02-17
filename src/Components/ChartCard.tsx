@@ -17,7 +17,7 @@ import {
 import { useCurrencies } from "../Hooks/useCurrencies";
 import { useChart } from "../Hooks/useChart";
 import { CustomTooltip } from "./CustomTooltip";
-import { useTheme } from "../Hooks/useThemeControler";
+import { useTheme } from "../Hooks/useThemeController";
 
 export const ChartCard: React.FC = () => {
   const { appearance } = useTheme();

@@ -5,7 +5,7 @@ interface ThemeContextData {
   toggleTheme: () => void;
 }
 
-export const ThemeControlerContext = createContext({} as ThemeContextData);
+export const ThemeControllerContext = createContext({} as ThemeContextData);
 
 interface ThemeContextProviderProps {
   children: ReactNode;
@@ -23,8 +23,8 @@ export const ThemeContextProvider: React.FC<ThemeContextProviderProps> = ({
   };
 
   return (
-    <ThemeControlerContext.Provider value={{ appearance, toggleTheme }}>
+    <ThemeControllerContext.Provider value={{ appearance, toggleTheme }}>
       {children}
-    </ThemeControlerContext.Provider>
+    </ThemeControllerContext.Provider>
   );
 };

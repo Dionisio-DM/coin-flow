@@ -7,7 +7,7 @@ import { ChartCard } from "./Components/ChartCard";
 import { InfoCard } from "./Components/InfoCard";
 import { useCurrencies } from "./Hooks/useCurrencies";
 import { useChart } from "./Hooks/useChart";
-import { useTheme } from "./Hooks/useThemeControler";
+import { useTheme } from "./Hooks/useThemeController";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
 function App() {

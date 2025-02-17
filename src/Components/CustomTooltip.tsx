@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import { useCurrencies } from "../Hooks/useCurrencies";
-import { useTheme } from "../Hooks/useThemeControler";
+import { useTheme } from "../Hooks/useThemeController";
 
 interface CustomTooltipProps {
   payload?: Array<{ name: string; value: number; fill?: string }>;
