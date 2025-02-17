@@ -21,7 +21,7 @@ import { useTheme } from "../Hooks/useThemeControler";
 
 export const ChartCard: React.FC = () => {
   const { appearance } = useTheme();
-  const { baseCurrency, targetCurrency, rate } = useCurrencies();
+  const { baseCurrency, targetCurrency, rate, currencyNames } = useCurrencies();
   const {
     seriesData,
     maxInPeriod,
@@ -29,7 +29,6 @@ export const ChartCard: React.FC = () => {
     getSeriesData,
     segmentedControlValue,
     updateSegmentedControlValue,
-    currencyNames,
   } = useChart();
 
   const segmentedControl = [

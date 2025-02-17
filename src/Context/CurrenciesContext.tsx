@@ -1,7 +1,9 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { currencyApi } from "../Services/currencyApi";
+import { CurrencyNames } from "../Entities/currency";
 
 interface ContextData {
+  currencyNames: CurrencyNames;
   baseCurrency: string;
   targetCurrency: string;
   updateBaseCurrency: (value: string) => void;
@@ -23,6 +25,8 @@ interface CurrenciesContextProviderProps {
 export const CurrenciesContextProvider: React.FC<
   CurrenciesContextProviderProps
 > = ({ children }) => {
+  const [currencyNames, setCurrencyNames] = useState<CurrencyNames>({});
+
   const [baseCurrency, setBaseCurrency] = useState<string>("BRL");
   const [targetCurrency, setTargetCurrency] = useState<string>("USD");
 
@@ -42,6 +46,7 @@ export const CurrenciesContextProvider: React.FC<
 
   useEffect(() => {
     currencyApi.getCurrenciesName().then((data) => {
+      setCurrencyNames(data);
       setCurrencies(Object.keys(data));
     });
   }, []);
@@ -93,6 +98,7 @@ export const CurrenciesContextProvider: React.FC<
   return (
     <CurrenciesContext.Provider
       value={{
+        currencyNames,
         baseCurrency,
         targetCurrency,
         updateBaseCurrency,
