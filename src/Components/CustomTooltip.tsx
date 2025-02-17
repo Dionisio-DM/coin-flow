@@ -1,5 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import { useCurrencies } from "../Hooks/useCurrencies";
+import { useTheme } from "../Hooks/useThemeControler";
 
 interface CustomTooltipProps {
   payload?: Array<{ name: string; value: number; fill?: string }>;
@@ -13,6 +14,8 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
   active,
 }) => {
   const { rate, baseCurrency, targetCurrency } = useCurrencies();
+  const { appearance } = useTheme();
+
   if (!active || !payload || payload.length === 0) {
     return null; // Não renderiza nada se o tooltip não estiver ativo ou sem payload
   }
@@ -20,7 +23,7 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
     <div
       className="custom-tooltip"
       style={{
-        backgroundColor: "#333333",
+        backgroundColor: appearance === "light" ? "#EAEAEF" : "#333333",
         padding: "8px",
         borderRadius: "5px",
       }}
