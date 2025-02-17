@@ -41,7 +41,7 @@ export const CurrenciesContextProvider: React.FC<
   useEffect(() => {
     currencyApi
       .getRate("BRL", "USD")
-      .then((data) => setRate(data.rates["USD"]));
+      .then((data) => setRate(data.rates["USD"] / 100000000));
   }, []);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export const CurrenciesContextProvider: React.FC<
   const getRate = async (baseCurrency: string, targetCurrency: string) => {
     currencyApi
       .getRate(baseCurrency, targetCurrency)
-      .then((data) => setRate(data.rates[targetCurrency]));
+      .then((data) => setRate(data.rates[targetCurrency] / 100000000));
   };
 
   const updateBaseCurrency = (value: string) => {

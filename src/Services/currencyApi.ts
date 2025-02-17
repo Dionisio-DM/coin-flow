@@ -3,7 +3,7 @@ import { CurrencyNames, Rate, RatePeriod } from "../Entities/currency";
 export const currencyApi = {
   async getRate(baseCurrency: string, targetCurrency: string): Promise<Rate> {
     const response = await fetch(
-      `https://api.frankfurter.dev/v1/latest?base=${baseCurrency}&symbols=${targetCurrency}&amount=1`
+      `https://api.frankfurter.dev/v1/latest?base=${baseCurrency}&symbols=${targetCurrency}&amount=100000000`
     );
     const data = await response.json();
     return data;
