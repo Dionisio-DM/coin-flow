@@ -56,10 +56,10 @@ function App() {
                   content={
                     rate <= 1
                       ? `1000 ${baseCurrency} = ${(1000 * rate).toFixed(
-                          2
+                          3
                         )} ${targetCurrency}`
                       : `1 ${baseCurrency} = ${rate.toFixed(
-                          2
+                          3
                         )} ${targetCurrency}`
                   }
                 ></InfoCard>
