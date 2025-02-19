@@ -20,6 +20,7 @@ export const formatDateRatePeriod = (
         year: "2-digit",
         day: "numeric",
         month: "2-digit",
+        timeZone: "UTC",
       }),
       price:
         rateObj[targetCurrency] / 10000000000 > 1
