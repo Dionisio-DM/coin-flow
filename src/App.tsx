@@ -22,7 +22,12 @@ function App() {
           <Box>
             <Header />
           </Box>
-          <IconButton onClick={toggleTheme} variant="ghost" size={"4"}>
+          <IconButton
+            onClick={toggleTheme}
+            variant="ghost"
+            size={"4"}
+            mt={"0.7rem"}
+          >
             {appearance === "light" ? <SunIcon /> : <MoonIcon />}
           </IconButton>
         </Flex>
