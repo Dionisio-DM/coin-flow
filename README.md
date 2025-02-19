@@ -54,3 +54,7 @@ Acesse a aplicação em: http://localhost:5173
 - Conversão: Insira o valor no campo de entrada e selecione a moeda de origem e destino.
 - Gráfico: Visualize a variação da cotação no gráfico integrado.
 - Tema: Utilize o botão de alternância (ícone de Sol/Lua) para trocar entre o modo claro e escuro.
+
+## Licença
+
+[MIT](https://choosealicense.com/licenses/mit/)
