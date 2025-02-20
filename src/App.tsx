@@ -77,7 +77,7 @@ function App() {
                   content={
                     rate <= 1
                       ? `${averageInPeriod} ${baseCurrency} = 1 ${targetCurrency}`
-                      : `${averageInPeriod} ${targetCurrency} = 1 ${baseCurrency}`
+                      : `1 ${baseCurrency} = ${averageInPeriod} ${targetCurrency}`
                   }
                 ></InfoCard>
               </Flex>
