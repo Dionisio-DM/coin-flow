@@ -4,6 +4,8 @@
 
 CoinFlow é uma aplicação web moderna que permite converter moedas e visualizar, por meio de um gráfico de linha interativo, a cotação atual e a variação de diferentes moedas. O projeto utiliza tecnologias modernas como React, TypeScript e Vite, além dos componentes estilizados do [Radix UI Themes](https://www.radix-ui.com/themes) e gráficos dinâmicos com [Recharts](https://recharts.org/en-US).
 
+Disponível em: https://coin-flow-kappa.vercel.app
+
 ---
 
 ## Funcionalidades
